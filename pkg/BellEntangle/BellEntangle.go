@@ -1,5 +1,5 @@
 
-package Entangle
+package BellEntangle
 
 import (
 	//	"fmt"
