@@ -8,7 +8,7 @@ import (
 	E "BellEntangle"
 )
 
-const max_rounds = 1000000
+const max_rounds = 1000
 
 // ****************************************************************************
 // * Entanglement 3

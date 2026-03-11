@@ -8,7 +8,7 @@ import (
 	E "BellEntangle"
 )
 
-const max_rounds = 500
+const max_rounds = 1000
 const showspins = false
 
 // ****************************************************************************
@@ -145,7 +145,7 @@ func Observe(id string) int {
 
 	// Stable measurement now possible at this end
 
-	eigenvalue,_ := E.DetectorInteraction(id,q,d)
+	eigenvalue := E.DetectorInteraction(id,q,d)
 
 	return eigenvalue
 }

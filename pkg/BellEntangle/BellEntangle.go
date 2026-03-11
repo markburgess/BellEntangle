@@ -52,7 +52,7 @@ func NewPair() {  // signal start of new pair
 
 func OneEndDetected(id string) bool {
 
-	_, err := os.ReadFile("/tmp/accepting"+id)
+	_, err := os.ReadFile("/mnt/pg_ram/accepting"+id)
 
 	return err == nil
 }
@@ -92,17 +92,6 @@ func DetectorInteraction(id string, q,d []byte) int {
 //***********************************************************
 
 func ClassicalDetectorInteraction(id string, q,d []byte) int {
-
-	/* cos^2 theta basically
-	 *
-	 * amplitude := 0
-	 *
-	 * for pos := 0; pos < WAVELENGTH; pos++ {
-	 *
-	 *	amplitude += (Qval(q[pos]) * Qval(d[pos]))
-}
-
-return amplitude */
 
 	switch q[0] {
 		case 'u': return 1
@@ -216,7 +205,7 @@ func GetRandOffset() int {
 func StartAccepting(id string) { // absorb one end
 
 	//fmt.Println("Emit, start entanglement",id)
-	os.WriteFile("/tmp/accepting"+id, []byte("GOGOGO"), 0644)
+	os.WriteFile("/mnt/pg_ram/accepting"+id, []byte("GOGOGO"), 0644)
 	time.Sleep(dt)
 }
 
@@ -225,7 +214,7 @@ func StartAccepting(id string) { // absorb one end
 func StopAccepting(id string) { // absorb one end
 
 	//fmt.Println("Absorbed, break entanglement",id)
-	os.Remove("/tmp/accepting"+id)
+	os.Remove("/mnt/pg_ram/accepting"+id)
 	time.Sleep(dt)
 }
 
@@ -329,14 +318,14 @@ func SetDetector(id string, offset float64) {
 		d[Cyc(pos+edge)] = WAVE[pos]
 	}
 
-	os.WriteFile("/tmp/D"+id, []byte(d), 0644)
+	os.WriteFile("/mnt/pg_ram/D"+id, []byte(d), 0644)
 }
 
 //***********************************************************
 
 func DetectorMinus(id string) []byte {
 
-	detector := "/tmp/D"+id
+	detector := "/mnt/pg_ram/D"+id
 
 	d, _ := os.ReadFile(detector)
 
@@ -358,7 +347,7 @@ func QMinus(id string) []byte {
 			idbar = "L"
 	}
 
-	inchannel := "/tmp/channel" + idbar
+	inchannel := "/mnt/pg_ram/channel" + idbar
 
 	q, _ := os.ReadFile(inchannel)
 
@@ -369,7 +358,7 @@ func QMinus(id string) []byte {
 
 func QPlus(id string, q []byte) {
 
-	outchannel := "/tmp/channel" + id
+	outchannel := "/mnt/pg_ram/channel" + id
 	os.WriteFile(outchannel, []byte(q), 0644)
 
 	// Need to wait for disk write to equilibrate,
